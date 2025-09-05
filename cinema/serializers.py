@@ -97,13 +97,19 @@ class MovieSessionListSerializer(MovieSessionSerializer):
         )
 
 
-
 class MovieSessionListAvailableSerializer(MovieSessionListSerializer):
     tickets_available = serializers.SerializerMethodField()
 
     class Meta:
         model = MovieSession
-        fields = MovieSessionListSerializer.Meta.fields + ("tickets_available",)
+        fields = (
+            "id",
+            "show_time",
+            "movie_title",
+            "cinema_hall_name",
+            "cinema_hall_capacity",
+            "tickets_available",
+        )
 
     def get_tickets_available(self, obj: MovieSession) -> int:
         if hasattr(obj, "tickets_available"):
